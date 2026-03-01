@@ -1,5 +1,5 @@
 
-# AOL Comphys – Trash Classifier MVP (TrashNet + PyTorch + Streamlit)
+# Trash Classifier MVP (TrashNet + PyTorch + Streamlit)
 
 MVP untuk tugas SDG 12 (Responsible Consumption and Production – Plastic Waste Management):
 
