@@ -2,7 +2,7 @@
 
 ReSort is a portfolio-ready computer vision app that identifies common household waste and turns a prediction into practical disposal guidance. It uses a fine-tuned ResNet-18 model, a transparent confidence layer, and a responsive Streamlit interface.
 
-> Live demo: deployment link will be added after the first Streamlit Community Cloud release.
+> **Live demo:** [resort-trash-classifier.streamlit.app](https://resort-trash-classifier.streamlit.app/)
 
 ![ReSort waste-classification interface](assets/resort-preview.png)
 
