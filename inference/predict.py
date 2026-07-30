@@ -26,7 +26,7 @@ def load_model(weights_path: str | Path = "models/model.pth", labels_path: str |
 
     labels = load_labels(labels_path)
     model = create_model("resnet18", num_classes=len(labels))
-    state = torch.load(str(weights_path), map_location=device)
+    state = torch.load(str(weights_path), map_location=device, weights_only=True)
     model.load_state_dict(state)
     model.to(device)
     model.eval()

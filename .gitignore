@@ -1,9 +1,9 @@
-# venv
+# Python environments and caches
 .venv/
 __pycache__/
 *.pyc
 
-# dataset (jangan pernah push)
+# Local TrashNet dataset; keep only directory placeholders
 data/*
 !data/trashnet/
 data/trashnet/*
@@ -11,30 +11,29 @@ data/trashnet/*
 data/trashnet/raw/*
 !data/trashnet/raw/**/
 !data/trashnet/raw/**/.gitkeep
-
-# model weights (jangan push, kecuali pakai Git LFS)
-models/model.pth
-
-# metrics: ignore semua, tapi KEEP yang penting untuk laporan
-metrics/*
-!metrics/metrics.json
-!metrics/classification_report.json
-!metrics/confusion_matrix.png
-!metrics/train_log.csv
-
-# local scratch
-check.txt
-
-# logs
-metrics/train_log.csv
-
-# dataset (keep only .gitkeep placeholders)
 data/trashnet/raw/**/*
 !data/trashnet/raw/**/.gitkeep
 
-# downloaded zip/folders (if any)
+# Downloaded dataset archives and extraction folders
 dataset-resized.zip
 data/dataset-resized.zip
 dataset-resized/
 data/dataset-resized/
 
+# Keep portfolio evaluation artifacts, but not training logs
+metrics/*
+!metrics/metrics.json
+!metrics/classification_report.json
+!metrics/confusion_matrix.png
+
+# Local process output and scratch files
+check.txt
+.pip-install.out.log
+.pip-install.err.log
+.dataset-download.out.log
+.dataset-download.err.log
+.train.out.log
+.train.err.log
+.train.pid
+.streamlit.out.log
+.streamlit.err.log

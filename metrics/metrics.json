@@ -1,5 +1,5 @@
 {
-  "best_val_acc": 0.833992095332843,
+  "best_val_acc": 0.9130434808523759,
   "model_name": "resnet18",
   "image_size": 224,
   "classes": [
@@ -9,5 +9,6 @@
     "paper",
     "plastic",
     "trash"
-  ]
+  ],
+  "training_strategy": "classifier_head_then_layer4"
 }

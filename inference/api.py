@@ -10,21 +10,20 @@ from PIL import Image
 from torchvision import transforms
 
 
-# --- Simple "decision layer" for waste handling (can be refined later) ---
 INSTRUCTIONS = {
-    "plastic": "Bilas cepat, keringkan, lalu buang ke Recycle Plastik.",
-    "glass": "Masukkan ke Recycle Kaca. Hati-hati pecah.",
-    "metal": "Kosongkan, bilas, lalu buang ke Recycle Logam.",
-    "paper": "Pastikan kering (tidak berminyak/basah), buang ke Kertas.",
-    "cardboard": "Lipat/pipihkan dan pastikan kering, buang ke Kardus.",
-    "trash": "Buang ke Residu/Tempat Sampah Umum (tidak bisa recycle).",
+    "plastic": "Empty, rinse, and dry it before placing it in plastic recycling.",
+    "glass": "Empty and rinse it, then place it in glass recycling. Handle broken glass carefully.",
+    "metal": "Empty and rinse the item before placing it in metal recycling.",
+    "paper": "Keep it clean and dry, then place it in paper recycling.",
+    "cardboard": "Flatten it, keep it dry, and place it in paper or cardboard recycling.",
+    "trash": "Place it in general waste because it is not suitable for standard recycling.",
 }
 
 @dataclass(frozen=True)
 class PredictConfig:
     image_size: int = 224
-    confidence_threshold: float = 0.60     # below this -> needs_review
-    margin_threshold: float = 0.15         # if top1-top2 small -> needs_review
+    confidence_threshold: float = 0.60
+    margin_threshold: float = 0.15
     topk: int = 2
 
 
@@ -54,7 +53,7 @@ def load_model(weights_path: str | Path = "models/model.pth",
 
     labels = load_labels(labels_path)
     model = create_model("resnet18", num_classes=len(labels))
-    state = torch.load(str(weights_path), map_location=device)
+    state = torch.load(str(weights_path), map_location=device, weights_only=True)
     model.load_state_dict(state)
     model.to(device)
     model.eval()
@@ -71,10 +70,9 @@ def predict_pil_ui(img: Image.Image,
     x = tf(img.convert("RGB")).unsqueeze(0).to(device)
 
     logits = model(x)
-    probs = F.softmax(logits, dim=1).squeeze(0)  # tensor [C]
+    probs = F.softmax(logits, dim=1).squeeze(0)
     probs_cpu = probs.detach().cpu()
 
-    # top-k
     topk_vals, topk_idx = torch.topk(probs_cpu, k=min(cfg.topk, len(labels)))
     top: List[Dict[str, Any]] = []
     for v, i in zip(topk_vals.tolist(), topk_idx.tolist()):
@@ -85,7 +83,6 @@ def predict_pil_ui(img: Image.Image,
     conf2 = top[1]["confidence"] if len(top) > 1 else 0.0
     margin = conf1 - conf2
 
-    # heuristic: common confusion pair in TrashNet
     confusable_pairs = {("glass", "plastic"), ("plastic", "glass")}
     top2_pair = (label1, top[1]["label"]) if len(top) > 1 else None
     pair_confusable = top2_pair in confusable_pairs
@@ -96,11 +93,10 @@ def predict_pil_ui(img: Image.Image,
     return {
         "label": label1,
         "confidence": conf1,
-        "top": top,                      # top2 list
+        "top": top,
         "needs_review": bool(needs_review),
         "margin": float(margin),
-        "instruction": INSTRUCTIONS.get(label1, "Buang sesuai kategori yang benar."),
-        # full probs (optional, useful for debugging)
+        "instruction": INSTRUCTIONS.get(label1, "Sort the item according to its material."),
         "probs": {labels[i]: float(probs_cpu[i].item()) for i in range(len(labels))}
     }
 

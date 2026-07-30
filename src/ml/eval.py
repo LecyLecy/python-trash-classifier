@@ -34,7 +34,7 @@ def main():
     test_loader = DataLoader(test_ds, batch_size=cfg.batch_size, shuffle=False, num_workers=cfg.num_workers)
 
     model = create_model(cfg.model_name, num_classes=len(classes)).to(device)
-    state = torch.load("models/model.pth", map_location=device)
+    state = torch.load("models/model.pth", map_location=device, weights_only=True)
     model.load_state_dict(state)
     model.eval()
 

@@ -25,8 +25,10 @@ class Config:
     batch_size: int = 32
     num_epochs: int = 12
     lr: float = 1e-3
+    fine_tune_lr: float = 1e-4
     weight_decay: float = 1e-4
     num_workers: int = 2
+    head_epochs: int = 3
 
     # Early stopping
     patience: int = 3
