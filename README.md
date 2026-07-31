@@ -32,6 +32,16 @@ The model uses transfer learning with ImageNet-pretrained ResNet-18 weights and 
 
 Per-class precision, recall, and F1 scores are available in [`metrics/classification_report.json`](metrics/classification_report.json). The interface also exposes uncertainty rather than presenting every prediction as equally reliable.
 
+### Diagnostic plots
+
+![Training curves](metrics/training_curves.png)
+
+![Per-class precision, recall, and F1](metrics/per_class_metrics.png)
+
+![TrashNet class distribution](metrics/class_distribution.png)
+
+![Representative TrashNet samples](metrics/sample_grid.png)
+
 ## Project structure
 
 ```text
@@ -110,9 +120,10 @@ Then run:
 ```powershell
 python -m src.ml.train
 python -m src.ml.eval
+python scripts/generate_metric_plots.py
 ```
 
-The training command writes `models/model.pth`, `models/labels.json`, and the training log. Evaluation writes the classification report and confusion matrix to `metrics/`.
+The training command writes `models/model.pth`, `models/labels.json`, and the training log. Evaluation writes the classification report and confusion matrix to `metrics/`. The plotting script turns those artifacts into the training curves, class-distribution chart, per-class score chart, and representative sample grid shown above.
 
 ## CLI inference
 

@@ -25,6 +25,7 @@ metrics/*
 !metrics/metrics.json
 !metrics/classification_report.json
 !metrics/confusion_matrix.png
+!metrics/train_log.csv
 
 # Local process output and scratch files
 check.txt
