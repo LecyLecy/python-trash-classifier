@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="./figures/resort-icon.png" alt="ReSort icon" width="88" />
+
 # ReSort AI Waste Classifier
 
 ### Turn one waste photo into a clearer disposal decision.
@@ -128,6 +130,9 @@ The plots below make the training progression, class balance, and per class perf
 │   └── model.pth                  # Trained model weights
 ├── metrics/                       # Reports, plots, and training log
 ├── figures/                       # README application screenshots
+│   ├── resort-icon.png             # ReSort brand icon
+│   ├── app-preview.png             # Classification result screenshot
+│   └── app-empty-state.png         # Empty state screenshot
 ├── scripts/
 │   └── generate_metric_plots.py   # Regenerates portfolio diagnostics
 ├── tests/
