@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./figures/resort-logo.png" alt="ReSort logo" width="190" />
+<img src="./figures/resort-logo-mark.png" alt="ReSort logo mark" width="128" />
 
 # ReSort AI Waste Classifier
 
@@ -130,7 +130,7 @@ The plots below make the training progression, class balance, and per class perf
 │   └── model.pth                  # Trained model weights
 ├── metrics/                       # Reports, plots, and training log
 ├── figures/                       # README application screenshots
-│   ├── resort-logo.png             # ReSort brand logo
+│   ├── resort-logo-mark.png        # ReSort brand logo mark
 │   ├── app-preview.png             # Classification result screenshot
 │   └── app-empty-state.png         # Empty state screenshot
 ├── scripts/
